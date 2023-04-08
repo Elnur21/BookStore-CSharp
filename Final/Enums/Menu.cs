@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace Final.Enums
 {
-    public enum Enums: byte
+    public enum Menu: byte
     {
-        AuthorAdd,
+        AuthorAdd = 1,
         AuthorEdit,
         AuthorDelete,
         AuthorGetAll,
