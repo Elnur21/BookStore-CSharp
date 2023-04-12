@@ -5,7 +5,7 @@ namespace Final.DataModels
 {
     public class Book: IEquatable<Book>, IEntity
     {
-        int counter = 0;
+        static int counter = 0;
         public Book()
         {
             counter++;

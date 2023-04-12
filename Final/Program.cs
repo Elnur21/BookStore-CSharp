@@ -32,16 +32,15 @@ namespace Final
                     ComeToWhere("Butun muellifleri gormek ucun istenilen bir duymeni sixin");
                     goto case Menu.AuthorGetAll;
                 case Menu.AuthorEdit:
-                    l2:
                     if (GetAllAuthors(true) == false)
                     {
                         goto case Menu.AuthorAdd;
                     }
-                    selectedID = Helper.ReadInt("Duzeltme edeceyiniz muellifin ID-ni secin siyahidan: ");
+                    selectedID = Helper.ReadUInt16("Duzeltme edeceyiniz muellifin ID-ni secin siyahidan: ");
                     selectedAuthor=authors.GetById(selectedID);
                     if (selectedAuthor == null)
                     {
-                        goto l2;
+                        goto case Menu.AuthorEdit;
                     }
                     Helper.ChangeLineColor($"Evvelki ad: {selectedAuthor.Name} \n", Console.ForegroundColor, ConsoleColor.Yellow);
                     selectedAuthor.Name = Helper.ReadString("Muellifin adi: ");
@@ -51,7 +50,16 @@ namespace Final
                     Helper.ChangeLineColor($"{selectedID} bu ID-li muellif ugurla yenilendi. \n", Console.ForegroundColor, ConsoleColor.Blue);
                     goto case Menu.AuthorGetAll;
                 case Menu.AuthorDelete:
-                    break;
+                    if (GetAllAuthors(true) == false)
+                    {
+                        goto case Menu.AuthorAdd;
+                    }
+                    selectedID = Helper.ReadUInt16("Silmek istediyiniz muellifin ID-ni secin siyahidan: ");
+                    selectedAuthor = authors.GetById(selectedID);
+                    Helper.ChangeLineColor($"{selectedID}. {selectedAuthor.Name} {selectedAuthor.Surename} silindi", Console.ForegroundColor, ConsoleColor.Red);
+                    authors.Remove(selectedAuthor);
+                    ComeToWhere("Butun siyahini gormek ucun her hansi duymeni sixin...");
+                    goto case Menu.AuthorDelete;
                 case Menu.AuthorGetAll:
                     if (GetAllAuthors(true) == false)
                     {

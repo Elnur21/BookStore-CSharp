@@ -4,11 +4,11 @@ namespace Final.DataModels
 {
     public class Author: IEquatable<Author>, IEntity
     {
-        int counter = 0;
+        static int counter = 0;
         public Author()
         {
             counter++;
-            this.ID = counter;
+            this.ID=counter;
         }
         public int ID { get; private set; }
         public string Name { get; set; }
