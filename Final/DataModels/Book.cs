@@ -1,15 +1,10 @@
 ﻿using Final.Enums;
-using System;
-using System.Collections.Generic;
-using System.Diagnostics.Metrics;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Xml.Linq;
+using Final.Infrastructure;
 
 namespace Final.DataModels
 {
-    internal class Book {
+    public class Book: IEquatable<Book>, IEntity
+    {
         int counter = 0;
         public Book()
         {
@@ -23,7 +18,12 @@ namespace Final.DataModels
         public int AuthorID { get; set; }
         public BookGenres Genre { get; set; }
         public int PageCount { get; set; }
-        public decimal Price { get; set; } 
+        public decimal Price { get; set; }
 
+        public bool Equals(Book? other)
+        {
+            if(other == null) return false;
+            return other.ID == this.ID;
+        }
     }
 }

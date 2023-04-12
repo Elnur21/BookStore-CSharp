@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -8,15 +9,19 @@ namespace Final.Helpers
 {
     public static partial class Helper
     {
+        public static void ChangeLineColor(string caption,ConsoleColor lastColor, ConsoleColor color)
+        {
+            Console.ForegroundColor = color;
+            Console.Write(caption);
+            Console.ForegroundColor = lastColor;
+        }
         public static int ReadInt(string caption)
         {
             int value;
             var color = Console.ForegroundColor;
 
         l1:
-            Console.ForegroundColor = ConsoleColor.Green;
-            Console.Write(caption);
-            Console.ForegroundColor = color;
+            ChangeLineColor(caption, color, ConsoleColor.Green);
 
 
             if (!int.TryParse(Console.ReadLine(), out value))
@@ -33,9 +38,7 @@ namespace Final.Helpers
             var color = Console.ForegroundColor;
 
         l1:
-            Console.ForegroundColor = ConsoleColor.Green;
-            Console.Write(caption);
-            Console.ForegroundColor = color;
+            ChangeLineColor(caption, color, ConsoleColor.Green);
 
 
             if (!decimal.TryParse(Console.ReadLine(), out value))
@@ -52,9 +55,7 @@ namespace Final.Helpers
             var color = Console.ForegroundColor;
 
         l1:
-            Console.ForegroundColor = ConsoleColor.Green;
-            Console.Write(caption);
-            Console.ForegroundColor = color;
+            ChangeLineColor(caption, color, ConsoleColor.Green);
 
 
             if (!ushort.TryParse(Console.ReadLine(), out value))
@@ -71,9 +72,7 @@ namespace Final.Helpers
             var color = Console.ForegroundColor;
 
         l1:
-            Console.ForegroundColor = ConsoleColor.Green;
-            Console.Write(caption);
-            Console.ForegroundColor = color;
+            ChangeLineColor(caption,color, ConsoleColor.Green);
 
             value = Console.ReadLine();
 

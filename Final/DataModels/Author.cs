@@ -1,12 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Final.Infrastructure;
 
 namespace Final.DataModels
 {
-    internal class Author
+    public class Author: IEquatable<Author>, IEntity
     {
         int counter = 0;
         public Author()
@@ -17,7 +13,11 @@ namespace Final.DataModels
         public int ID { get; private set; }
         public string Name { get; set; }
         public string Surename { get; set; }
-        
-        
+
+        public bool Equals(Author? other)
+        {
+            if (other == null) return false;
+            return other.ID == this.ID;
+        }
     }
 }
