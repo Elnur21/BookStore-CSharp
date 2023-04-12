@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Final.Enums
 {
-    public enum BookGenres
+    public enum BookGenres: byte
     {
         Mystery=1,
         Romance,
