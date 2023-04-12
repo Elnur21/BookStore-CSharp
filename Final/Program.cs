@@ -2,7 +2,6 @@
 using Final.Enums;
 using Final.Helpers;
 using Final.Infrastructure;
-using System.Reflection;
 
 namespace Final
 {
@@ -168,11 +167,6 @@ namespace Final
                 default:
                     break;
             }
-        }
-
-        private static void GetByID()
-        {
-            throw new NotImplementedException();
         }
 
         private static int DefineAuthor()
