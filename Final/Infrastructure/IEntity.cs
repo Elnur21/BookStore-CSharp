@@ -1,6 +1,6 @@
 ﻿namespace Final.Infrastructure
 {
-    internal interface IEntity
+    public interface IEntity
     {
         public int ID { get; }
     }

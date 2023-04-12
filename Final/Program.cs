@@ -2,6 +2,8 @@
 using Final.Enums;
 using Final.Helpers;
 using Final.Infrastructure;
+using System.Reflection;
+using System.Runtime.Serialization.Formatters.Binary;
 
 namespace Final
 {
@@ -13,6 +15,25 @@ namespace Final
 
         static void Main(string[] args)
         {
+            string dataFilePath = "bookStore.dat";
+            try
+            {
+                using (var fs = File.OpenRead(dataFilePath))
+                {
+                    BinaryFormatter bf = new BinaryFormatter();
+
+                    Database db = bf.Deserialize(fs) as Database;
+
+                    if (db != null)
+                    {
+                        authors = db.Authors;
+                        books = db.Books;
+                    }
+                }
+            }
+            catch (Exception)
+            {
+            }
             Menu m;
             int selectedID;
             string selectedName;
@@ -96,7 +117,7 @@ namespace Final
                     selectedBook.Name = Helper.ReadString("Kitabin adini daxil edin: ");
                     selectedBook.Genre = Helper.ReadEnum<BookGenres>("Kitab janrlarindan 1-i secin: ");
                     selectedBook.Price = Helper.ReadDecimal("Kitabin qiymetini daxil edin: ");
-                    selectedBook.PageCount = Helper.ReadInt("Seife sayini daxil edin: ");
+                    selectedBook.PageCount = Helper.ReadInt("Sehife sayini daxil edin: ");
                     
                     selectedBook.AuthorID = DefineAuthor();
                     books.Add(selectedBook);
@@ -163,8 +184,25 @@ namespace Final
                     }
                     goto menu;
                 case Menu.SaveAndExit:
-                    break;
+                    using (FileStream fs = File.OpenWrite(dataFilePath))
+                    {
+                        Database db = new Database();
+
+                        db.Authors = authors;
+                        db.Books = books;
+
+                        BinaryFormatter bf = new BinaryFormatter();
+
+                        bf.Serialize(fs, db);
+                    }
+                    l2:
+                    string stop = Helper.ReadString("Davam etmek isteyirsiz?(y/n): ").ToUpper();
+                    if (stop == "N" || stop == "NO") goto default;
+                    else if (stop == "Y" || stop == "YES") goto l1;
+                    Helper.ChangeLineColor("duzgun cavab daxil edilmedi, yeniden yazin. \n", Console.ForegroundColor, ConsoleColor.DarkYellow);
+                    goto l2;
                 default:
+                    Console.WriteLine("Emeliyyatlar sona yetdi.");
                     break;
             }
         }

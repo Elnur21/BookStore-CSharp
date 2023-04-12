@@ -3,6 +3,7 @@ using Final.Infrastructure;
 
 namespace Final.DataModels
 {
+    [Serializable]
     public class Book: IEquatable<Book>, IEntity
     {
         static int counter = 0;

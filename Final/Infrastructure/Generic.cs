@@ -2,7 +2,8 @@
 
 namespace Final.Infrastructure
 {
-    internal class Generic<T> : IEnumerable<T>
+    [Serializable]
+    public class Generic<T> : IEnumerable<T>
         where T : class, IEquatable<T>, IEntity
     {
         T[] data = new T[0];
