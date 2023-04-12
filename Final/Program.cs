@@ -15,6 +15,7 @@ namespace Final
         {
             Menu m;
             int selectedID;
+            string selectedName;
             Author selectedAuthor;
             Book selectedBook;
         l1:
@@ -56,7 +57,7 @@ namespace Final
                     }
                     selectedID = Helper.ReadUInt16("Silmek istediyiniz muellifin ID-ni secin siyahidan: ");
                     selectedAuthor = authors.GetById(selectedID);
-                    Helper.ChangeLineColor($"{selectedID}. {selectedAuthor.Name} {selectedAuthor.Surename} silindi", Console.ForegroundColor, ConsoleColor.Red);
+                    Helper.ChangeLineColor($"{selectedID}. {selectedAuthor.Name} {selectedAuthor.Surename} silindi \n", Console.ForegroundColor, ConsoleColor.Red);
                     authors.Remove(selectedAuthor);
                     ComeToWhere("Butun siyahini gormek ucun her hansi duymeni sixin...");
                     goto case Menu.AuthorDelete;
@@ -67,11 +68,29 @@ namespace Final
                     }
                     ComeToWhere("Menuya qayitmaq ucun Her hansi duymeni sixin");
                     goto l1;
-
                 case Menu.AuthorGetByID:
-                    break;
+                    if (!GetAllAuthors(true))
+                    {
+                        goto case Menu.AuthorAdd;
+                    }
+                    selectedID = Helper.ReadUInt16("Muellif ID-i secin siayhidan");
+                    selectedAuthor= authors.GetById(selectedID);
+                    Helper.ChangeLineColor($"{selectedID}. {selectedAuthor.Name} {selectedAuthor.Surename} \n", Console.ForegroundColor, ConsoleColor.Magenta);
+                    ComeToWhere("Menuya qayitmaq ucun Her hansi duymeni sixin");
+                    goto l1;
                 case Menu.AuthorGetByName:
-                    break;
+                    if (!GetAllAuthors(true))
+                    {
+                        goto case Menu.AuthorAdd;
+                    }
+                    selectedName = Helper.ReadString("Muellifin adini secin siayhidan");
+                    Author[] selectedAuthors = authors.GetAll(a => a.Name==selectedName);
+                    foreach (var author in selectedAuthors)
+                    {
+                        Helper.ChangeLineColor($"{author.ID}. {author.Name} {author.Surename} \n", Console.ForegroundColor, ConsoleColor.Cyan);
+                    }
+                    ComeToWhere("Menuya qayitmaq ucun Her hansi duymeni sixin");
+                    goto l1;
                 case Menu.BookAdd:
                     break;
                 case Menu.BookEdit:
