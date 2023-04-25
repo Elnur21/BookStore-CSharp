@@ -105,6 +105,7 @@ namespace Final
                         goto case Menu.AuthorAdd;
                     }
                     selectedName = Helper.ReadString("Muellifin adini secin siayhidan: ");
+                    selectedName = char.ToUpper(selectedName[0]) + selectedName.Substring(1);
                     Author[] selectedAuthors = authors.GetAll(a => a.Name==selectedName);
                     foreach (var author in selectedAuthors)
                     {
@@ -176,7 +177,8 @@ namespace Final
                     {
                         goto case Menu.BookAdd;
                     }
-                    selectedName = Helper.ReadString("Muellifin adini secin siayhidan: ");
+                    selectedName = Helper.ReadString("Kitabin adini secin siayhidan: ");
+                    selectedName = char.ToUpper(selectedName[0]) + selectedName.Substring(1);
                     Book[] selectedBooks = books.GetAll(b => b.Name == selectedName);
                     foreach (var book in selectedBooks)
                     {
